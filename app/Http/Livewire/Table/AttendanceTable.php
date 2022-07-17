@@ -17,7 +17,7 @@ class AttendanceTable extends LivewireDatatable
 
     public function builder()
     {
-        return Attendance::query();
+        return Attendance::query()->whereIn('attendance_status', [1, 2, 3, 4, 5]);
     }
 
     public function columns()
