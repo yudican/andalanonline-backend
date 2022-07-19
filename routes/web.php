@@ -15,6 +15,7 @@ use App\Http\Livewire\Master\ShiftController;
 use App\Http\Livewire\ScheduleShiftController;
 use App\Http\Livewire\Attendance\AttendanceController;
 use App\Http\Livewire\Attendance\AttendanceRequestController;
+
 use App\Http\Livewire\Member\UserProfileController;
 // [route_import_path]
 
@@ -57,7 +58,8 @@ Route::group(['middleware' => ['auth:sanctum', 'verified', 'user.authorization']
     Route::get('/schedule-shifts', ScheduleShiftController::class)->name('schedule-shifts');
     Route::get('/attendances', AttendanceController::class)->name('attendances');
     Route::get('/attendance-request', AttendanceRequestController::class)->name('attendance-request');
+    
     Route::get('/user-profiles', UserProfileController::class)->name('user-profiles');
-    // [route_path]
+// [route_path]
 
 });

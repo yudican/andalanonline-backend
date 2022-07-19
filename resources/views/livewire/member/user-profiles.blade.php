@@ -5,9 +5,9 @@
                 <div class="card-body">
                     <h4 class="card-title text-capitalize">
                         <a href="{{route('dashboard')}}">
-                            <span><i class="fas fa-arrow-left mr-3"></i>user profiles</span>
+                            <span><i class="fas fa-arrow-left mr-3"></i>tbl user profiles</span>
                         </a>
-                        {{-- <div class="pull-right">
+                        <div class="pull-right">
                             @if ($form_active)
                             <button class="btn btn-danger btn-sm" wire:click="toggleForm(false)"><i class="fas fa-times"></i> Cancel</button>
                             @else
@@ -16,7 +16,7 @@
                                 New</button>
                             @endif
                             @endif
-                        </div> --}}
+                        </div>
                     </h4>
                 </div>
             </div>
@@ -25,15 +25,31 @@
             @if ($form_active)
             <div class="card">
                 <div class="card-body">
-                    <x-text-field type="text" name="tanggal_lahir" label="Tanggal Lahir" />
-                    <x-text-field type="text" name="tanggal_masuk_kerja" label="Tanggal Masuk Kerja" />
-                    <x-text-field type="text" name="jenis_kelamin" label="Jenis Kelamin" />
-                    <x-text-field type="text" name="alamat" label="Alamat" />
-                    <x-text-field type="text" name="foto_ktp" label="Foto Ktp" />
+                    <x-text-field type="text" name="name" label="Nama" />
+                    <x-text-field type="email" name="email" label="Email" />
+
+                    <x-select name="cabang_id" label="Cabang">
+                        <option value="">Select Cabang</option>
+                        @foreach ($cabangs as $cabang)
+                        <option value="{{$cabang->id}}">{{$cabang->nama_cabang}}</option>
+                        @endforeach
+                    </x-select>
+                    <x-select name="divisi_id" label="Divisi">
+                        <option value="">Select Divisi</option>
+                        @foreach ($divisis as $divisi)
+                        <option value="{{$divisi->id}}">{{$divisi->nama_divisi}}</option>
+                        @endforeach
+                    </x-select>
+                    <x-input-photo foto="{{$foto_ktp}}" path="{{optional($foto_ktp_path)->temporaryUrl()}}" name="foto_ktp_path" label="Foto Ktp" />
                     <x-input-photo foto="{{$foto_wajah}}" path="{{optional($foto_wajah_path)->temporaryUrl()}}" name="foto_wajah_path" label="Foto Wajah" />
-                    <x-text-field type="text" name="cabang_id" label="Cabang Id" />
-                    <x-text-field type="text" name="divisi_id" label="Divisi Id" />
-                    <x-text-field type="text" name="user_id" label="User Id" />
+                    <x-select name="jenis_kelamin" label="Jenis Kelamin">
+                        <option value="">Select Jenis Kelamin</option>
+                        <option value="Laki-Laki">Laki-Laki</option>
+                        <option value="Perempuan">Perempuan</option>
+                    </x-select>
+                    <x-text-field type="date" name="tanggal_lahir" label="Tanggal Lahir" />
+                    <x-text-field type="date" name="tanggal_masuk_kerja" label="Tanggal Masuk Kerja" />
+                    <x-text-field type="text" name="alamat" label="Alamat" />
 
                     <div class="form-group">
                         <button class="btn btn-primary pull-right" wire:click="{{$update_mode ? 'update' : 'store'}}">Simpan</button>

@@ -7,6 +7,7 @@ use App\Models\UserProfile;
 use Mediconesystems\LivewireDatatables\BooleanColumn;
 use Mediconesystems\LivewireDatatables\Column;
 use App\Http\Livewire\Table\LivewireDatatable;
+use App\Models\User;
 
 class UserProfileTable extends LivewireDatatable
 {
@@ -25,24 +26,29 @@ class UserProfileTable extends LivewireDatatable
         $this->hide = HideableColumn::where(['table_name' => $this->table_name, 'user_id' => auth()->user()->id])->pluck('column_name')->toArray();
         return [
             Column::name('id')->label('No.'),
-            Column::name('user.name')->label('Nama Karyawan')->searchable(),
-            Column::name('tanggal_lahir')->label('Tanggal Lahir')->searchable(),
-            Column::name('tanggal_masuk_kerja')->label('Tanggal Masuk Kerja')->searchable(),
-            Column::name('jenis_kelamin')->label('Jenis Kelamin')->searchable(),
-            Column::name('alamat')->label('Alamat')->searchable(),
+            Column::name('user.name')->label('Nama')->searchable(),
+            Column::name('cabang.nama_cabang')->label('Cabang')->searchable(),
+            Column::name('divisi.nama_divisi')->label('Divisi')->searchable(),
             Column::callback(['foto_ktp'], function ($image) {
                 return view('livewire.components.photo', [
                     'image_url' => asset('storage/' . $image),
                 ]);
-            })->label(__('Foto KTP')),
+            })->label(__('Foto Ktp')),
             Column::callback(['foto_wajah'], function ($image) {
                 return view('livewire.components.photo', [
                     'image_url' => asset('storage/' . $image),
                 ]);
             })->label(__('Foto Wajah')),
-            Column::name('cabang.nama_cabang')->label('Cabang Id')->searchable(),
-            Column::name('divisi.nama_divisi')->label('Divisi Id')->searchable(),
-
+            Column::name('jenis_kelamin')->label('Jenis Kelamin')->searchable(),
+            Column::name('tanggal_lahir')->label('Tanggal Lahir')->searchable(),
+            Column::name('tanggal_masuk_kerja')->label('Tanggal Masuk Kerja')->searchable(),
+            Column::callback(['tbl_users.status', $this->table_name . '.user_id'], function ($status, $id) {
+                return view('livewire.components.toggle-status', [
+                    'id' => $id,
+                    'active' => $status,
+                    'field' => 'status',
+                ]);
+            })->label(__('Status')),
             Column::callback(['id'], function ($id) {
                 return view('livewire.components.action-button', [
                     'id' => $id,
@@ -51,7 +57,14 @@ class UserProfileTable extends LivewireDatatable
             })->label(__('Aksi')),
         ];
     }
-
+    public function toggleStatus($id, $field)
+    {
+        $user = User::find($id);
+        if ($user) {
+            $user->update(['status' => $user->status == 0 ? 1 : 0]);
+        }
+        $this->emit('showAlert', ['msg' => 'Status Berhasil Diupdate']);
+    }
     public function getDataById($id)
     {
         $this->emit('getDataUserProfileById', $id);

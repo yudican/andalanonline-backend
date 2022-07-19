@@ -13,9 +13,9 @@ class UserProfile extends Model
 
     //public $incrementing = false;
 
-    protected $fillable = ['tanggal_lahir', 'tanggal_masuk_kerja', 'jenis_kelamin', 'alamat', 'foto_ktp', 'foto_wajah', 'cabang_id', 'divisi_id', 'user_id'];
+    protected $fillable = ['alamat', 'cabang_id', 'divisi_id', 'foto_ktp', 'foto_wajah', 'jenis_kelamin', 'tanggal_lahir', 'tanggal_masuk_kerja', 'user_id'];
 
-    protected $dates = [];
+    protected $dates = ['tanggal_lahir', 'tanggal_masuk_kerja'];
 
     /**
      * Get the user that owns the UserProfile

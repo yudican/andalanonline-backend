@@ -240,8 +240,8 @@ class AuthController extends Controller
             'tanggal_masuk_kerja' => 'required',
             'jenis_kelamin' => 'required',
             'alamat' => 'required',
-            'foto_ktp' => 'required|image|mimes:jpeg,png,jpg|max:2048',
-            'foto_wajah' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+            'foto_ktp' => 'required|image|mimes:jpeg,png,jpg',
+            'foto_wajah' => 'required|image|mimes:jpeg,png,jpg',
             'cabang_id' => 'required',
             'divisi_id' => 'required',
             'password' => 'required|min:6|confirmed',
@@ -321,14 +321,17 @@ class AuthController extends Controller
                 'kode_otp' => null,
                 'status' => 0,
             ];
+
             $user->update($userData);
+            $foto_ktp = $request->foto_ktp->store('upload/ktp', 'public');
+            $foto_wajah = $request->foto_wajah->store('upload/wajah', 'public');
             UserProfile::create([
                 'tanggal_lahir' => $request->tanggal_lahir,
                 'tanggal_masuk_kerja' => $request->tanggal_masuk_kerja,
                 'jenis_kelamin' => $request->jenis_kelamin,
                 'alamat' => $request->alamat,
-                'foto_ktp' => $request->foto_ktp,
-                'foto_wajah' => $request->foto_wajah,
+                'foto_ktp' => $foto_ktp,
+                'foto_wajah' => $foto_wajah,
                 'cabang_id' => $request->cabang_id,
                 'divisi_id' => $request->divisi_id,
                 'user_id' => $user->id,
