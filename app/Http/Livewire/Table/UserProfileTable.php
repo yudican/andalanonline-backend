@@ -29,16 +29,16 @@ class UserProfileTable extends LivewireDatatable
             Column::name('user.name')->label('Nama')->searchable(),
             Column::name('cabang.nama_cabang')->label('Cabang')->searchable(),
             Column::name('divisi.nama_divisi')->label('Divisi')->searchable(),
-            Column::callback(['foto_ktp'], function ($image) {
-                return view('livewire.components.photo', [
-                    'image_url' => asset('storage/' . $image),
-                ]);
-            })->label(__('Foto Ktp')),
-            Column::callback(['foto_wajah'], function ($image) {
-                return view('livewire.components.photo', [
-                    'image_url' => asset('storage/' . $image),
-                ]);
-            })->label(__('Foto Wajah')),
+            // Column::callback(['foto_ktp'], function ($image) {
+            //     return view('livewire.components.photo', [
+            //         'image_url' => asset('storage/' . $image),
+            //     ]);
+            // })->label(__('Foto Ktp')),
+            // Column::callback(['foto_wajah'], function ($image) {
+            //     return view('livewire.components.photo', [
+            //         'image_url' => asset('storage/' . $image),
+            //     ]);
+            // })->label(__('Foto Wajah')),
             Column::name('jenis_kelamin')->label('Jenis Kelamin')->searchable(),
             Column::name('tanggal_lahir')->label('Tanggal Lahir')->searchable(),
             Column::name('tanggal_masuk_kerja')->label('Tanggal Masuk Kerja')->searchable(),
