@@ -63,8 +63,8 @@ class UserProfileController extends Component
             return $this->addError('email', 'User Sudah Terdaftar');
         }
 
-        $foto_ktp = $this->foto_ktp_path->store('upload', 'public');
-        $foto_wajah = $this->foto_wajah_path->store('upload', 'public');
+        $foto_ktp = $this->foto_ktp_path->store('upload/ktp', 'public');
+        $foto_wajah = $this->foto_wajah_path->store('upload/wajah', 'public');
         $user = User::create([
             'name' => $this->name,
             'email' => $this->email,
@@ -116,7 +116,7 @@ class UserProfileController extends Component
 
 
         if ($this->foto_ktp_path) {
-            $foto_ktp = $this->foto_ktp_path->store('upload', 'public');
+            $foto_ktp = $this->foto_ktp_path->store('upload/ktp', 'public');
             $data = ['foto_ktp' => $foto_ktp];
             if (Storage::exists('public/' . $this->foto_ktp)) {
                 Storage::delete('public/' . $this->foto_ktp);
@@ -124,7 +124,7 @@ class UserProfileController extends Component
         }
 
         if ($this->foto_wajah_path) {
-            $foto_wajah = $this->foto_wajah_path->store('upload', 'public');
+            $foto_wajah = $this->foto_wajah_path->store('upload/wajah', 'public');
             $data = ['foto_wajah' => $foto_wajah];
             if (Storage::exists('public/' . $this->foto_wajah)) {
                 Storage::delete('public/' . $this->foto_wajah);
