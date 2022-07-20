@@ -29,6 +29,6 @@ class ScheduleShift extends Model
      */
     public function attendance()
     {
-        return $this->hasOne(Attendance::class)->orderBy('created_at', 'desc')->orWhereNotIn('attendance_note', ['izin', 'cuti', 'sakit', 'lembur']);
+        return $this->hasOne(Attendance::class)->orderBy('created_at', 'desc');
     }
 }
