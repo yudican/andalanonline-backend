@@ -10,7 +10,7 @@ class Attendance extends Model
     use HasFactory;
 
     protected $guarded = [];
-    protected $appends = ['time'];
+    protected $appends = ['time', 'attendance_active'];
     /**
      * Get the user that owns the Attendance
      *
@@ -38,5 +38,14 @@ class Attendance extends Model
         }
 
         return $this->schedule->schedule_time;
+    }
+
+    public function getAttendanceActiveAttribute()
+    {
+        $attendance_active = false;
+        if ($this->attributes['attendance_active'] == 1) {
+            $attendance_active = true;
+        }
+        return $attendance_active;
     }
 }
