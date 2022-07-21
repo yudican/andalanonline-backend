@@ -92,7 +92,7 @@ class InsertScheduleAttendance extends Command
         // update attendance
         $attendances = Attendance::where('attendance_active', true)->get();
         foreach ($attendances as $key => $attendance) {
-            $end_date = date('Y-m-d 23:59:59', strtotime($attendance->created_at));
+            $end_date = date('Y-m-d 23:59:58', strtotime($attendance->created_at));
             if ($attendance->schedule->schedule_type == 'checkout') {
                 if (strtotime(date('Y-m-d H:i:s')) > strtotime($end_date)) {
                     $attendance->update(['attendance_active' => false, 'attendance_status' => 1, 'attendance_date' => date('Y-m-d H:i:s')]);
