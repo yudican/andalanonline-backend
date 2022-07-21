@@ -122,7 +122,7 @@ class AttendanceController extends Controller
         $date = $request->date ? $request->date : date('Y-m-d');
         $attendances = Attendance::with('schedule')->whereDate('created_at', $date)->whereHas('schedule', function ($query) use ($request) {
             $query->where('shift_id', $request->shift_id);
-        })->get();
+        })->where('user_id', auth()->user()->id)->get();
 
         $respon = [
             'status' => 'success',
